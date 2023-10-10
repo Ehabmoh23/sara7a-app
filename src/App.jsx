@@ -7,6 +7,8 @@ import Profile from './components/Profile/Profile';
 import Notfound from './components/Notfound/Notfound';
 import { useContext, useEffect } from 'react';
 import { tokenContext } from './Context/tokenContext';
+import SendMessage from './components/SendMessage/SendMessage';
+import ProtectedRoutes from './components/Protected-routes/Protected-routes';
 
 function App() {
   let {setToken}= useContext(tokenContext);
@@ -20,7 +22,8 @@ const routes = createBrowserRouter([{
   path:"",element:<Layout/>,children:[
     {path:"register", element:<Register/>},
     {path:"login", element:<Login/>},
-    {path:"profile", element:<Profile/>},
+    {path:"profile", element:<ProtectedRoutes> <Profile/> </ProtectedRoutes>},
+    {path:"message/id", element:<ProtectedRoutes> <SendMessage/> </ProtectedRoutes>},
     {path:"*", element:<Notfound/>},
   ]
 
