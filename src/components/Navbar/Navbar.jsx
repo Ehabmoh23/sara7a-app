@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Navbar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { tokenContext } from "../../Context/tokenContext";
 export default function Navbar() {
+  let {token ,setToken}= useContext(tokenContext);
+ let navigate = useNavigate();
+ 
+ function logOut(){
+  localStorage.removeItem("userToken");
+  setToken(null)
+  navigate("/login")
+ }
+
   return (
     <>
       <div>
@@ -26,6 +36,15 @@ export default function Navbar() {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              {token ? <>   <li className="nav-item">
+                  <Link className="nav-link " aria-current="page" to={"/profile"}>
+                    Profile
+                  </Link>
+                </li>
+                <button className="nav-link " onClick={logOut}>
+                    Logout
+                  </button>
+                  </>: <>
                 <li className="nav-item">
                   <Link className="nav-link " aria-current="page" to={"/register"}>
                     Register
@@ -36,11 +55,8 @@ export default function Navbar() {
                     Login
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link " aria-current="page" to={"/profile"}>
-                    Profile
-                  </Link>
-                </li>
+              
+                </> }
               </ul>
             </div>
           </div>

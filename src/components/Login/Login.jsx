@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from './Login.module.css';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
+import { tokenContext } from "../../Context/tokenContext";
 export default function Login()  {
     let navigate = useNavigate();
     const[isLoading,setIsLoading] = useState(false);
     const[apiError,setApiError] = useState("");
+    let {setToken}= useContext(tokenContext);
 
     function login(values){
         setIsLoading(true);
      axios.post(`https://sara7aiti.onrender.com/api/v1/user/signin`, values).then((data)=>{
         if(data.data.message == "welcome"){
             setIsLoading(false);
+            localStorage.setItem("userToken",data.data.token);
+            setToken(data.data.token);
             navigate("/profile")
         }
      }).catch((err)=>{
