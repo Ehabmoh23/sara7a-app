@@ -23,7 +23,7 @@ const routes = createBrowserRouter([{
     {path:"register", element:<Register/>},
     {path:"login", element:<Login/>},
     {path:"profile", element:<ProtectedRoutes> <Profile/> </ProtectedRoutes>},
-    {path:"message/id", element:<ProtectedRoutes> <SendMessage/> </ProtectedRoutes>},
+    {path:"message/:id", element:<SendMessage/>},
     {path:"*", element:<Notfound/>},
   ]
 
