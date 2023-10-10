@@ -2,9 +2,29 @@ import React from "react";
 import styles from "./SendMessage.module.css";
 import { useParams } from "react-router-dom";
 import profilePic from '../../img/avatar.png'
+import { useFormik } from "formik";
+import axios from "axios";
 export default function SendMessage() {
+
   let x = useParams();
-  console.log(x);
+    async function addMessage(values){
+            let data ={
+                ...values,
+                receivedid:x.id
+            }
+        let res = await axios.post("https://sara7aiti.onrender.com/api/v1/message",data)
+            console.log(res)
+        }
+
+    let formik = useFormik({
+        initialValues:{
+            messageContent:""
+        },
+        onSubmit:(values)=>{
+            addMessage(values)
+        }
+    })
+
   return (
     <>
       <div className="container text-center py-5 my-5 text-center">
@@ -14,17 +34,19 @@ export default function SendMessage() {
           </a>
           <h3 className="py-2">Nourhan Saeed</h3>
           <div className="container w-50 m-auto">
-            <form action method="post">
+            <form onSubmit={formik.handleSubmit}>
               <textarea
                 className="form-control"
-                name
+                name="messageContent"
+                value={formik.values.messageContent}
+                onChange={formik.handleChange}
                 id
                 cols={10}
                 rows={9}
                 placeholder="You cannot send a Sarahah to yourself, share your profile with your friends :)"
                 defaultValue={""}
               />
-              <button className="btn btn-outline-info mt-3">
+              <button className="btn btn-outline-info mt-3" type="submit">
                 <i className="far fa-paper-plane" /> Send
               </button>
             </form>
