@@ -4,9 +4,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { tokenContext } from "../../Context/tokenContext";
 import jwtDecode from "jwt-decode";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function Profile() {
 const [userId,setUserId] = useState("");
     const [allMessages,setAllMessages]=useState([]);
+    let {messages} = useSelector((state)=>state.counterRed)
 async function getMessages(){
  let {data}=   await axios.get("https://sara7aiti.onrender.com/api/v1/message" ,{
         headers:{
@@ -26,7 +29,13 @@ function getUserId(){
 useEffect(()=>{
     getMessages();
     getUserId();
+    dispatch(getMessages())
+    
 },[])
+useEffect(()=>{
+  console.log("messages");
+  
+},[messages])
   return (
     <>
       <div className="container text-center py-5 my-5 text-center">

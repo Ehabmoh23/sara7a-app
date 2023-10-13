@@ -7,13 +7,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import TokenContextProvider from "./Context/tokenContext";
-
+import { Provider } from "react-redux";
+import store from "./Redux/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <TokenContextProvider>
       <App />
     </TokenContextProvider>
+    </Provider>
   </React.StrictMode>
 );
 

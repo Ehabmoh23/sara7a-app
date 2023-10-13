@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import profilePic from '../../img/avatar.png'
 import { useFormik } from "formik";
 import axios from "axios";
+
 export default function SendMessage() {
 
   let x = useParams();
     async function addMessage(values){
-            let data ={
+            const data ={
                 ...values,
                 receivedid:x.id
             }
@@ -32,7 +33,7 @@ export default function SendMessage() {
           <a href data-toggle="modal" data-target="#profile">
             <img src={profilePic} className="avatar " alt />
           </a>
-          <h3 className="py-2">Nourhan Saeed</h3>
+          <h3 className="py-2">Ehab Mohamed</h3>
           <div className="container w-50 m-auto">
             <form onSubmit={formik.handleSubmit}>
               <textarea
