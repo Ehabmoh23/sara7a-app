@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Profile() {
 const [userId,setUserId] = useState("");
     const [allMessages,setAllMessages]=useState([]);
-    let {messages} = useSelector((state)=>state.counterRed)
+    let {messages} = useSelector((state)=>state.counterRed);
+    let dispatch = useDispatch();
 async function getMessages(){
  let {data}=   await axios.get("https://sara7aiti.onrender.com/api/v1/message" ,{
         headers:{
@@ -34,7 +35,6 @@ useEffect(()=>{
 },[])
 useEffect(()=>{
   console.log("messages");
-  
 },[messages])
   return (
     <>
